@@ -2,9 +2,11 @@
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class RaceCounter {
-    private int counter = 0;
+    //private int counter = 0;
+    private AtomicInteger counter = new AtomicInteger(0);
 
     /**
      * Initializes the two threads and starts the counter.
@@ -16,7 +18,8 @@ public class RaceCounter {
 
         for (int i = 0; i < countTo; i++) {
             executorService.submit(() -> {
-                counter++;
+                //counter++;
+                counter.incrementAndGet();
             });
         }
 
@@ -28,7 +31,8 @@ public class RaceCounter {
      * @return The current value of the counter.
      */
     public int getCounter() {
-        return this.counter;
+        //return this.counter;
+        return this.counter.get();
     }
 
 }
